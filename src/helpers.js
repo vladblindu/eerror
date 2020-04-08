@@ -96,7 +96,7 @@ const compactDefsModules = classDefList =>
 
 const identify = (errorClasses, err) => {
     for (let cls in errorClasses)
-        if (errorClasses.hasOwnProperty(cls)) {
+        if (errorClasses.hasOwnProperty(cls) && errorClasses[cls].identify) {
             // get the errorClass
             const tmp = errorClasses[cls]
             // get it's targetErrors property value
@@ -125,6 +125,7 @@ const createError = (err, nPack) => nPack
     // else generate a default error
     : new GenericError(err, 'No registered signature for the original error found.')
 
+const normalizableClasses = errorClasses => {}
 
 const initNormalize = errorClasses => err => err.className && err.errorName
     // if it's an BaseError instance return the error
